@@ -195,4 +195,21 @@ module mbist_controller #(
                             dir   <= alg_sel ? ss_dir[elem+1] : mc_dir[elem+1];
                             cnt   <= (alg_sel ? ss_dir[elem+1] : mc_dir[elem+1]) ? DEPTH-1 : 0;
                             state <= PRESENT_A;
-           
+                        end
+                    end else begin
+                        cnt   <= dir ? cnt - 1 : cnt + 1;
+                        state <= PRESENT_A;
+                    end
+                end
+
+                DONE_ST: begin
+                    done  <= 1'b1;
+                    state <= IDLE;
+                end
+
+                default: state <= IDLE;
+            endcase
+        end
+    end
+
+endmodule
